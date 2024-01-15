@@ -3,7 +3,7 @@ import requests
 
 
 def search(url):
-    r = requests.get("https://www1.gogoanime.ee/search.html?keyword="+url)
+    r = requests.get("https://anitaku.to/search.html?keyword="+url)
     html = BeautifulSoup(r.content, 'html.parser')
     result = html.select(".items li a")
     links=[]
@@ -12,7 +12,7 @@ def search(url):
     return links[0]
 
 def getEpisodes(url):
-    r= requests.get("https://www1.gogoanime.ee/category/"+url)
+    r= requests.get("https://anitaku.to/category/"+url)
     html = BeautifulSoup(r.content)
     id = html.select("#movie_id")[0]["value"]
     name = html.select("#alias_anime")[0]["value"]
@@ -26,7 +26,7 @@ def getEpisodes(url):
     return link_arr[::-1]
 
 def getDownloadUrl(epUrl):
-    r = requests.get("https://www1.gogoanime.ee/"+epUrl)
+    r = requests.get("https://anitaku.to/"+epUrl)
     html = BeautifulSoup(r.content,"html.parser")
     dUrl = html.select(".streamsb a")[0]["data-video"]
     download= requests.get(f"{dUrl.replace('https://streamsss.net/e/','https://streamsss.net/d/')}")
